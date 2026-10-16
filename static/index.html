@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LibraFlow | Library Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+
+    <aside class="sidebar">
+      <a class="brand" href="#overview">
+        <span class="brand-mark">L</span>
+        <span>Libra<span class="brand-light">Flow</span>
+          <small>LIBRARY OPERATIONS</small>
+        </span>
+      </a>
+
+      <div class="side-label">WORKSPACE</div>
+      <a class="nav-link active" href="#overview">◫ &nbsp; Overview</a>
+      <a class="nav-link" href="#catalog">▤ &nbsp; Book catalog</a>
+      <a class="nav-link" href="#requests">⇄ &nbsp; Requests & queue</a>
+      <a class="nav-link" href="#console">⌘ &nbsp; Execution console</a>
+
+      <div class="sidebar-bottom">
+        <div class="side-status">
+          <span class="pulse-dot"></span>
+          <div>
+            <b>Engine online</b>
+            <small>Mutex simulation active</small>
+          </div>
+        </div>
+        <div class="profile">
+          <div class="avatar">AD</div>
+          <div>
+            <b>Admin Console</b>
+            <small>Library operator</small>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">LIBRARY OPERATIONS / OVERVIEW</div>
+          <h1>Concurrency dashboard<span class="title-dot">.</span></h1>
+          <p class="subheading">
+            Keep every checkout synchronized, fair, and accountable.
+          </p>
+        </div>
+
+        <div class="top-actions">
+          <span class="date-chip" id="liveClock">● LIVE</span>
+          <button class="button button-ghost" id="resetBtn">
+            ↻ Reset demo
+          </button>
+        </div>
+      </header>
+
+      <section class="mutex-banner">
+        <div class="mutex-icon">⌁</div>
+
+        <div class="mutex-copy">
+          <span class="eyebrow">SHARED RESOURCE LOCK</span>
+          <h2 id="mutexTitle">Mutex is idle</h2>
+          <p id="mutexMessage">
+            No active transaction. Inventory is safe to access.
+          </p>
+        </div>
+
+        <div class="mutex-state">
+          <span class="state-light" id="mutexLight"></span>
+          <div>
+            <b id="mutexBadge">UNLOCKED</b>
+            <small id="mutexOwner">Owner: none</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-top">
+            <span>Total copies</span>
+            <span class="stat-icon purple">▤</span>
+          </div>
+          <div class="stat-value" id="totalCopies">12</div>
+          <div class="stat-foot">Across all tracked titles</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span>Available now</span>
+            <span class="stat-icon green">✓</span>
+          </div>
+          <div class="stat-value" id="availableCopies">7</div>
+          <div class="stat-foot" id="availabilityText">Ready to issue</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span>Checked out</span>
+            <span class="stat-icon blue">↗</span>
+          </div>
+          <div class="stat-value" id="checkedOutCopies">5</div>
+          <div class="stat-foot">Currently with readers</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-top">
+            <span>Waiting requests</span>
+            <span class="stat-icon orange">Ⅱ</span>
+          </div>
+          <div class="stat-value" id="queueCount">0</div>
+          <div class="stat-foot">FIFO reservation queue</div>
+        </article>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">OS CONCEPT / MUTUAL EXCLUSION</span>
+            <h2>Concurrency pipeline</h2>
+          </div>
+          <span class="section-note">● Atomic checkout simulation</span>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-intro">
+            <div class="pipeline-symbol">⇄</div>
+            <div>
+              <h3>Race condition lab</h3>
+              <p>
+                Trigger both requests together and watch the lock
+                serialize access to the shared inventory.
+              </p>
+            </div>
+          </div>
+
+          <div class="request-lanes">
+            <div class="request-lane" id="laneA">
+              <div class="user-avatar user-a">A</div>
+              <div class="lane-info">
+                <b>User A <span class="request-tag">REQUEST 01</span></b>
+                <small id="userAStatus">Ready to request a book</small>
+              </div>
+              <span class="lane-status" id="userABadge">READY</span>
+            </div>
+
+            <div class="request-lane" id="laneB">
+              <div class="user-avatar user-b">B</div>
+              <div class="lane-info">
+                <b>User B <span class="request-tag">REQUEST 02</span></b>
+                <small id="userBStatus">Ready to request a book</small>
+              </div>
+              <span class="lane-status" id="userBBadge">READY</span>
+            </div>
+          </div>
+
+          <div class="pipeline-controls">
+            <label for="raceBook">Target title</label>
+            <select id="raceBook"></select>
+            <button class="button button-primary" id="raceBtn">
+              ▶ Run simultaneous requests
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="catalog">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">RESOURCE ADDRESSING</span>
+            <h2>Book inventory</h2>
+          </div>
+
+          <div class="catalog-actions">
+            <input
+              id="searchInput"
+              class="search-input"
+              placeholder="Search books or authors..."
+            >
+            <button class="button button-ghost" id="addBookBtn">
+              ＋ Add sample title
+            </button>
+          </div>
+        </div>
+
+        <div class="catalog-grid" id="catalogGrid"></div>
+      </section>
+
+      <section class="lower-grid">
+        <div class="panel" id="requests">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">FAIR PROCESS SCHEDULING</span>
+              <h2>Reservation waitlist</h2>
+            </div>
+            <span class="counter-pill" id="queuePill">0 waiting</span>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>POSITION</th>
+                  <th>STUDENT</th>
+                  <th>BOOK</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody id="queueTable"></tbody>
+            </table>
+          </div>
+
+          <div class="empty-state" id="queueEmpty">
+            <div class="empty-icon">☷</div>
+            <b>Queue is clear</b>
+            <p>Blocked requests will appear here in FIFO order.</p>
+          </div>
+        </div>
+
+        <div class="panel" id="console">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">SYSLOG / AUDIT TRAIL</span>
+              <h2>Execution console</h2>
+            </div>
+            <button class="text-button" id="clearLogBtn">Clear log</button>
+          </div>
+
+          <div class="console-head">
+            <span>● mutex-engine.log</span>
+            <span id="logCount">0 EVENTS</span>
+          </div>
+          <div class="console-body" id="consoleBody" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <footer>
+        <span>LIBRAFLOW · OS CONCURRENCY DEMO</span>
+        <span>Mutex locking · Critical sections · FIFO scheduling</span>
+      </footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
