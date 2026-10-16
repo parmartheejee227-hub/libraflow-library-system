@@ -13,7 +13,7 @@ let toastTimer;
 
 const $ = id => document.getElementById(id);
 
-const API = "/api";
+const API = "https://libraflow-library-system-1.onrender.com/api";
 
 const timeNow = () =>
     new Date().toLocaleTimeString("en-GB", { hour12: false });
